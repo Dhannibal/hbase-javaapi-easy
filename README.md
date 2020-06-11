@@ -1,5 +1,5 @@
 # hbase-javaapi-easy
-##Hbase的Java Api
+## Hbase的Java Api
 是个课程实验，花了一下午时间写的使用java api连接hbase的功能,觉得还挺有意思。
 
 问题背景是建一个树状结构的部门组织管理表。
