@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.log4j.BasicConfigurator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class HbaseConnection {
     private Admin admin;
 
     public HbaseConnection() {
+        BasicConfigurator.configure();
         Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum","XXX.XXX.XXX.XXX");
         conf.set("hbase.zookeeper.property.clientPort","2181");

@@ -10,7 +10,6 @@ public class Htest {
     static  experiment3 ex = new experiment3();
     @Test
     public void test() {
-        BasicConfigurator.configure();
         String ss = "00_11";
         System.out.println(ss.substring(0, ss.indexOf("_")));
     }

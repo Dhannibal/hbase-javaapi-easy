@@ -30,7 +30,6 @@ public class experiment3 {
 
         num = 0;
         dfs("0_000");
-        System.out.println(num);
     }
 
     public void showDeep(int deep) throws IOException {
@@ -102,7 +101,7 @@ public class experiment3 {
         Random random = new Random();
         int NodeNum = random.nextInt(6)+1;
         int deep = Integer.parseInt(id.substring(0, id.indexOf("_"))) + 1;
-        System.out.println(NodeNum);
+//        System.out.println(NodeNum);
 
         for(int i = 1; i <= NodeNum; i++) {
             if(num >= MaxNum) return;
