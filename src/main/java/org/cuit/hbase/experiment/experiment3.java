@@ -30,6 +30,7 @@ public class experiment3 {
 
         num = 0;
         dfs("0_000");
+        System.out.println(num);
     }
 
     public void showDeep(int deep) throws IOException {
@@ -97,16 +98,16 @@ public class experiment3 {
     }
 
     public void dfs(String id) {
-
+        if(num > MaxNum) return;
         Random random = new Random();
         int NodeNum = random.nextInt(6)+1;
         int deep = Integer.parseInt(id.substring(0, id.indexOf("_"))) + 1;
         System.out.println(NodeNum);
 
         for(int i = 1; i <= NodeNum; i++) {
-            String RowKey = NewId(deep);
-            num++;
             if(num >= MaxNum) return;
+            num++;
+            String RowKey = NewId(deep);
             //指定父节点
             PutData(RowKey, "base", "fid", id);
             //指定当前节点的名字
