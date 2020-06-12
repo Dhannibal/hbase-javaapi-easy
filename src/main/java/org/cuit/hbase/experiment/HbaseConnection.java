@@ -21,7 +21,7 @@ public class HbaseConnection {
     public HbaseConnection() {
         BasicConfigurator.configure();
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum","XXX.XXX.XXX.XXX");
+        conf.set("hbase.zookeeper.quorum","39.99.156.133");
         conf.set("hbase.zookeeper.property.clientPort","2181");
 
         try {
@@ -152,7 +152,7 @@ public class HbaseConnection {
         Table table = GetTable(tableName);
         Result result = table.get(get);
         String NumStr = Bytes.toString(result.getValue(Bytes.toBytes("subdept"),
-                                                    Bytes.toBytes("childNum")));
+                Bytes.toBytes("childNum")));
         if(NumStr == null) {
             Put put = new Put(rowKey.getBytes()); //指定rowKey
             put.addColumn("subdept".getBytes(), "childNum".getBytes(), String.valueOf(0).getBytes());
