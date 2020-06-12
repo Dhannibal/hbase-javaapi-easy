@@ -1,6 +1,5 @@
 package org;
 
-import org.apache.log4j.BasicConfigurator;
 import org.cuit.hbase.experiment.experiment3;
 import org.junit.Test;
 
