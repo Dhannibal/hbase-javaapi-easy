@@ -52,7 +52,7 @@ public class experiment3 {
     public List<String> scanByRowKeyForChild(String rowKey) throws IOException {
         List<String> childIdList = new ArrayList<String>();
         System.out.println("查询"+ rowKey+"的子部门信息");
-        Map<byte[], byte[]> familyMap = con.getFamily("dept", rowKey, "subdept");
+        Map<byte[], byte[]> familyMap = scanByRowKeyForChildMap(rowKey);
         for(Map.Entry<byte[], byte[]> entry:familyMap.entrySet()){
             System.out.println(Bytes.toString(entry.getValue()));
             childIdList.add(Bytes.toString(entry.getValue()));
@@ -60,13 +60,21 @@ public class experiment3 {
         return childIdList;
     }
 
+    public Map<byte[], byte[]> scanByRowKeyForChildMap(String rowKey) throws IOException {
+        return con.getFamily("dept", rowKey, "subdept");
+    }
+
     //根据rowKey查询基本信息
     public void scanByRowKeyForBasic(String rowKey) throws IOException {
         System.out.println("查询"+ rowKey+"的基本信息");
-        Map<byte[], byte[]> familyMap = con.getFamily("dept", rowKey, "base");
+        Map<byte[], byte[]> familyMap = scanByRowKeyForBasicMap(rowKey);
         for(Map.Entry<byte[], byte[]> entry:familyMap.entrySet()){
             System.out.println(Bytes.toString(entry.getKey()) + ":" + Bytes.toString(entry.getValue())+"  ");
         }
+    }
+
+    public Map<byte[], byte[]> scanByRowKeyForBasicMap(String rowKey) throws IOException {
+        return con.getFamily("dept", rowKey, "base");
     }
 
     public int getRowKeyChildNum( String rowKey) throws IOException {
@@ -86,7 +94,7 @@ public class experiment3 {
     }
 
     public void deleteDep(String toRowKey, String nowRowKey) throws IOException {
-        Map<byte[], byte[]> familyMap = con.getFamily("dept", nowRowKey, "base");
+        Map<byte[], byte[]> familyMap = scanByRowKeyForBasicMap(nowRowKey);
         for(Map.Entry<byte[], byte[]> entry:familyMap.entrySet()) {
             if(Bytes.toString(entry.getKey()).equals("fid")) {
                 String fid = Bytes.toString(entry.getValue());
@@ -139,13 +147,13 @@ public class experiment3 {
             if(num >= MaxNum) return;
             num++;
             String RowKey = NewId(deep);
-            //指定父节点
-            con.PutData("dept", RowKey, "base", "fid", id);
             //指定当前节点的名字
             String val = String.valueOf(deep)+"层部门" + String.valueOf(num)+"号";
             con.PutData("dept", RowKey, "base", "name", val);
 
             if(!id.equals("0_000")) {
+                //指定父节点
+                con.PutData("dept", RowKey, "base", "fid", id);
                 //给父节添加子节点
                 con.PutData("dept", id, "subdept", "child_"+String.valueOf(i)+"_id", RowKey);
             }

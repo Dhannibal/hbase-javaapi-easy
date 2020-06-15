@@ -25,7 +25,7 @@ public class Htest {
     @Test
     public void testShowDeep() {
         try {
-            ex.scanDeep(2);
+            ex.scanDeep(3);
         }catch (Exception e) {
             e.printStackTrace();
         }
