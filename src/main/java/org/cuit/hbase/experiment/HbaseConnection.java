@@ -95,6 +95,7 @@ public class HbaseConnection {
             System.out.println(tableName + " already exist!");
             return ;
         }
+
         HTableDescriptor tableDescriptor=new HTableDescriptor(TableName.valueOf(tableName));
         try{
             for(String family:families) {

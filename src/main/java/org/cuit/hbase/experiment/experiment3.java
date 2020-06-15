@@ -12,7 +12,6 @@ import java.util.Random;
 public class experiment3 {
     private int num;
     private static final int MaxNum = 30;
-
     private final HbaseConnection con;
     private HashMap<Integer, Integer>numMp;
 
