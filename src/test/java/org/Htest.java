@@ -8,10 +8,11 @@ import java.util.List;
 public class Htest {
     static  experiment3 ex = new experiment3();
     @Test
-    public void test() {
+    public void testFun() {
         String ss = "00_11";
         System.out.println(ss.substring(0, ss.indexOf("_")));
     }
+
     @Test
     public void testCreate()  {
         try{
@@ -24,7 +25,7 @@ public class Htest {
     @Test
     public void testShowDeep() {
         try {
-            ex.showDeep(3);
+            ex.scanDeep(2);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,15 +34,11 @@ public class Htest {
     @Test
     public void testScanByRowKey() {
         try{
-            List<String> ls =  ex.scanByRowKey("1_001");
-            for(String ss : ls) {
-                System.out.println(ss);
-            }
+            ex.scanByRowKey("1_001");
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void testAddDep() {
@@ -60,6 +57,6 @@ public class Htest {
         }catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
 }
