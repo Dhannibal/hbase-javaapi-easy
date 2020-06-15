@@ -49,15 +49,12 @@ public class experiment3 {
     }
 
     //根据rowKey查询子部门
-    public List<String> scanByRowKeyForChild(String rowKey) throws IOException {
-        List<String> childIdList = new ArrayList<String>();
+    public void scanByRowKeyForChild(String rowKey) throws IOException {
         System.out.println("查询"+ rowKey+"的子部门信息");
         Map<byte[], byte[]> familyMap = scanByRowKeyForChildMap(rowKey);
         for(Map.Entry<byte[], byte[]> entry:familyMap.entrySet()){
             System.out.println(Bytes.toString(entry.getValue()));
-            childIdList.add(Bytes.toString(entry.getValue()));
         }
-        return childIdList;
     }
 
     public Map<byte[], byte[]> scanByRowKeyForChildMap(String rowKey) throws IOException {
@@ -106,13 +103,14 @@ public class experiment3 {
             }
         }
 
-        List<String> childList = scanByRowKeyForChild(nowRowKey);
-        int cnt = getRowKeyChildNum(toRowKey);
-        if(childList == null) return;
-        for(String id : childList) {
+        Map<byte[], byte[]> childFamily = scanByRowKeyForChildMap(nowRowKey);
+        int cnt = childFamily.size();
+
+        for( Map.Entry<byte[], byte[]> kv : childFamily.entrySet()) {
             cnt++;
-            con.PutData("dept", toRowKey, "subdept", "child_"+String.valueOf(cnt)+"_id", id);
-            con.PutData("dept", id, "base", "fid", toRowKey);
+            con.PutData("dept", toRowKey, "subdept", "child_"+String.valueOf(cnt)+"_id",
+                    Bytes.toString(kv.getValue()));
+            con.PutData("dept", Bytes.toString(kv.getValue()), "base", "fid", toRowKey);
         }
         con.deleteRowKey("dept", nowRowKey);
     }
