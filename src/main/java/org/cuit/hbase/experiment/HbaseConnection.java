@@ -9,6 +9,7 @@ import org.apache.log4j.BasicConfigurator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HbaseConnection {
 
@@ -136,6 +137,26 @@ public class HbaseConnection {
     public void deleteRowKey(String tableName, String rowKey) throws IOException {
         Table table = GetTable(tableName);
         Delete delete = new Delete(Bytes.toBytes(rowKey));
+        table.delete(delete);
+    }
+
+    public Map<byte[], byte[]> getFamily(String tableName, String rowKey, String family) throws IOException {
+        Get get = new Get(Bytes.toBytes(rowKey));
+        Table table = GetTable(tableName);
+        Result result = table.get(get);
+        return result.getFamilyMap(Bytes.toBytes(family));
+    }
+
+    public int getFamilyCount(String tableName, String rowKey, String family) throws IOException {
+        return getFamily(tableName, rowKey, family).size();
+    }
+
+    //删除指定cell数据
+    public void deleteByRowKeyCell(String tableName, String rowKey, String family, String con) throws IOException {
+
+        Table table = GetTable(tableName);
+        Delete delete = new Delete(Bytes.toBytes(rowKey));
+        delete.addColumns(Bytes.toBytes(family), Bytes.toBytes(con));
         table.delete(delete);
     }
 

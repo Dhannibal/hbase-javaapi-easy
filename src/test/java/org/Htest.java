@@ -32,9 +32,18 @@ public class Htest {
     }
 
     @Test
-    public void testScanByRowKey() {
+    public void testScanByRowKeyForChild() {
         try{
-            ex.scanByRowKey("1_001");
+            ex.scanByRowKeyForChild("1_001");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testScanByRowKeyForBasic() {
+        try{
+            ex.scanByRowKeyForBasic("1_001");
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +62,7 @@ public class Htest {
     @Test
     public void testDeleteDep() {
         try {
-            ex.deleteDep("1_001", "1_002");
+            ex.deleteDep("1_001", "2_15959721");
         }catch (Exception e) {
             e.printStackTrace();
         }
