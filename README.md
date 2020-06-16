@@ -6,7 +6,7 @@
 
 在建表的时候使用了随机递归的方式生成一棵树。
 
-![](1.png)
+![](https://c2cpicdw.qpic.cn/offpic_new/825857667//825857667-3417782206-56400E7CCBFCDD3F371BEDCF65DD993E/0?term=2)
 
 
 
@@ -34,5 +34,5 @@
 
 ### 设计参考
 
-![](2.png)
+![](https://c2cpicdw.qpic.cn/offpic_new/825857667//825857667-579960115-B0C1212D09206C7404FCD80F631FBA87/0?term=2)
 
